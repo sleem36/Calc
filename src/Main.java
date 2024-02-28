@@ -21,7 +21,8 @@ public class Main {
         String[] values = {"I","II","III","IV","V","VI","VII","VIII","IX","X"};
         int rim = 0; // rim = 1 если выводим ответ римскими цифрами
         String input_return; // результат римскими или арабскими
-                
+        int input_kol = 0; // кол-во операндов
+
         CalcRimNum calcDopLeft = new CalcRimNum();
         CalcRimNum calcDopRight = new CalcRimNum();
 
@@ -32,6 +33,7 @@ public class Main {
             var_left = proizvedenie[0].trim(); // присваиваем переменную и убираем пробелы
             var_right = proizvedenie[1].trim();
             znak = 1;
+            input_kol = proizvedenie.length;
         }
 
         if (input.contains("/")) {
@@ -39,6 +41,7 @@ public class Main {
             var_left = proizvedenie[0].trim(); // присваиваем переменную и убираем пробелы
             var_right = proizvedenie[1].trim();
             znak = 2;
+            input_kol = proizvedenie.length;
         }
 
         if (input.contains("+")) {
@@ -46,6 +49,7 @@ public class Main {
             var_left = proizvedenie[0].trim(); // присваиваем переменную и убираем пробелы
             var_right = proizvedenie[1].trim();
             znak = 3;
+            input_kol = proizvedenie.length;
         }
 
         if (input.contains("-")) {
@@ -53,8 +57,15 @@ public class Main {
             var_left = proizvedenie[0].trim(); // присваиваем переменную и убираем пробелы
             var_right = proizvedenie[1].trim();
             znak = 4;
+            input_kol = proizvedenie.length;
         }
 
+        if(input_kol < 2){
+            throw new IllegalArgumentException("строка не является математической операцией!!!");
+        }
+        if(input_kol > 2){
+            throw new IllegalArgumentException("формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)!!!");
+        }
         if(Arrays.asList(values).contains(var_left)
                 || Arrays.asList(values).contains(var_right)){ // Левая или правая часть это римское число
             if(Arrays.asList(values).contains(var_left)
